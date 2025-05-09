@@ -4,10 +4,12 @@ import { Edit, Trash2 } from "@deemlol/next-icons";
 interface TaskBoxProps {
     title: string;
     description: string;
+    editTask: () => void;
+    deleteTask: () => void;
 }
 
 
-export default function TaskBox({title, description}: TaskBoxProps) {
+export default function TaskBox({title, description, editTask, deleteTask}: TaskBoxProps) {
     return (
         <div className="p-6 pr-9 border border-gray-300 rounded-lg flex flex-col gap-5 w-[440px]">
             <div className="flex flex-row items-center justify-between">
@@ -18,8 +20,8 @@ export default function TaskBox({title, description}: TaskBoxProps) {
                     </label>
                 </div>
                 <div className="flex flex-row gap-6 items-center justify-end">
-                <Edit size={18} color="#000000" />
-                <Trash2 size={18} color="#000000" />
+                <Edit onClick={editTask} size={18} color="#000000" className="cursor-pointer"/>
+                <Trash2 onClick={deleteTask} size={18} color="#000000" className="cursor-pointer"/>
                 </div>
             </div>
                 <span className="text-gray-600">{description}</span>
