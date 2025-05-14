@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Form from "./componentes/form";
 import TaskBox from "./componentes/taskBox";
 
@@ -21,6 +21,23 @@ export default function Home() {
       description: "teste",
     },
   ]);
+
+  useEffect(() => {
+      const storedTasks = localStorage.getItem("tasks");
+      if (storedTasks) {
+        setTasks(JSON.parse(storedTasks));
+      } 
+  }, []);
+
+  useEffect(() => {
+    handleLocalStorage()
+  }, [tasks]);
+
+  function handleLocalStorage () {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    console.log("Tasks saved to local storage:", localStorage.getItem("tasks"));
+  }
+
   const handleAddTask = (data: any) => {
     if (editedTaks !== null) {
       setTasks((tasks) => tasks.map((task) => (
